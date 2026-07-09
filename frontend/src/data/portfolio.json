@@ -1,0 +1,128 @@
+{
+  "profile": {
+    "name": "Forest Data",
+    "role": "AI 应用 / 数据产品开发者",
+    "location": "China",
+    "tagline": "把 AI 能力、数据看板和业务流程做成能直接演示的产品原型。",
+    "summary": "这个作品集基于 ai_pro 项目整理，展示从前端交互、后端接口、文件数据存储到 AI 工具化工作流的完整实现能力。页面内容全部来自本 JSON 文件，上传到 GitHub 后可以直接查看和维护。",
+    "github": "https://github.com/forest-data",
+    "repository": "https://github.com/forest-data/personal_portfolio"
+  },
+  "heroStats": [
+    {
+      "label": "作品模块",
+      "value": "5+",
+      "note": "覆盖运营、记账、股票学习、AI 内容生成"
+    },
+    {
+      "label": "技术栈",
+      "value": "React + FastAPI",
+      "note": "前后端分离，可本地启动完整演示"
+    },
+    {
+      "label": "数据方式",
+      "value": "File Based",
+      "note": "作品集内容使用 JSON 文件维护"
+    }
+  ],
+  "skills": [
+    "React / Vite",
+    "FastAPI / Python",
+    "REST API",
+    "数据看板",
+    "AI 工具产品化",
+    "文件型数据存储",
+    "交互原型",
+    "GitHub Pages"
+  ],
+  "projects": [
+    {
+      "title": "Aether Studio 多功能工作台",
+      "category": "AI 产品集成",
+      "status": "可演示",
+      "route": "/app",
+      "description": "一个统一登录、侧边栏导航、模块化业务页面和内置 AI 助手的工作台。适合作为 AI 工具矩阵或内部运营系统的基础框架。",
+      "highlights": [
+        "统一账号入口与身份态持久化",
+        "模块化路由和统一应用 Shell",
+        "内置智能助手面板，可根据当前页面提供操作建议"
+      ],
+      "techStack": ["React", "React Router", "FastAPI", "Axios"]
+    },
+    {
+      "title": "运营 BI 看板",
+      "category": "数据产品",
+      "status": "静态高保真",
+      "route": "/app",
+      "description": "面向运营复盘的增长数据看板，包含活跃趋势、渠道来源、转化漏斗、重点项目和风险预警。",
+      "highlights": [
+        "用 SVG 和 CSS 实现趋势图、进度条和分布图",
+        "信息层级适合周报、日会和投屏展示",
+        "结构可替换为真实接口数据"
+      ],
+      "techStack": ["React", "CSS Grid", "Data Visualization"]
+    },
+    {
+      "title": "个人记账台",
+      "category": "业务系统",
+      "status": "可交互",
+      "route": "/app/finance",
+      "description": "个人收支管理模块，支持收支录入、分类统计、趋势分析和流水查看。",
+      "highlights": [
+        "后端用 JSON 文件保存交易记录",
+        "前端提供统计卡片、分类列表和流水表格",
+        "适合展示 CRUD、状态管理和接口联调能力"
+      ],
+      "techStack": ["React", "FastAPI", "JSON Storage"]
+    },
+    {
+      "title": "股票概念理解与选股辅助",
+      "category": "金融学习工具",
+      "status": "可扩展",
+      "route": "/app/stock-concepts",
+      "description": "把常见股票指标、行业概念和选股偏好整理成可浏览、可学习、可生成扫描结果的工具页。",
+      "highlights": [
+        "本地知识数据文件驱动概念学习页面",
+        "用户偏好可保存到后端数据文件",
+        "适合继续接入行情接口或 LLM 解释能力"
+      ],
+      "techStack": ["React", "Python", "Local Data"]
+    },
+    {
+      "title": "Image2Video 图片转视频工具",
+      "category": "AI 内容生产",
+      "status": "可运行",
+      "route": "/app/image-to-video",
+      "description": "上传多张图片并配置字幕、分辨率、帧率和转场，一键生成可预览和下载的视频。",
+      "highlights": [
+        "支持图片上传、选择排序和字幕配置",
+        "后端基于 imageio-ffmpeg 生成视频",
+        "适合短视频批量生产场景的 MVP 原型"
+      ],
+      "techStack": ["FastAPI", "Pillow", "imageio-ffmpeg", "React"]
+    }
+  ],
+  "timeline": [
+    {
+      "time": "阶段 01",
+      "title": "搭建前后端分离应用",
+      "detail": "完成 React + FastAPI 基础工程、登录注册、接口封装和路由保护。"
+    },
+    {
+      "time": "阶段 02",
+      "title": "扩展业务模块",
+      "detail": "加入运营看板、记账台、股票概念学习、交易画像和图片转视频工具。"
+    },
+    {
+      "time": "阶段 03",
+      "title": "作品集化整理",
+      "detail": "新增公开个人主页、文件型作品集数据和 GitHub Pages 发布配置。"
+    }
+  ],
+  "changeNotes": [
+    "新增公开个人主页，默认访问 / 即可查看作品集。",
+    "作品集文案、项目列表、技能标签和时间线统一维护在 frontend/src/data/portfolio.json。",
+    "保留原应用演示入口，点击作品卡片可进入 /app 下的功能模块。",
+    "新增 GitHub Pages 工作流，推送 main 分支后可自动构建前端静态页面。"
+  ]
+}

@@ -1,0 +1,24 @@
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Backend runtime files
+backend/uploads/
+backend/videos/
+backend/data.json
+test_images/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local environment
+.env
+.env.*
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
