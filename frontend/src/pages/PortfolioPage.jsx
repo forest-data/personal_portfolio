@@ -135,6 +135,10 @@ export default function PortfolioPage() {
                     <Link className="portfolio-status-link" to={project.route}>
                       {project.status}
                     </Link>
+                  ) : project.caseId ? (
+                    <Link className="portfolio-status-link" to={`/agent/${project.caseId}`}>
+                      {project.status}
+                    </Link>
                   ) : (
                     <button
                       className="portfolio-status-link"
@@ -166,6 +170,17 @@ export default function PortfolioPage() {
                     进入工作台
                     <ExternalLink size={15} />
                   </Link>
+                ) : project.caseId ? (
+                  <div className="portfolio-card-actions">
+                    <Link className="portfolio-card-link" to={`/agent/${project.caseId}`}>
+                      查看静态演示
+                      <ExternalLink size={15} />
+                    </Link>
+                    <div className="portfolio-source-path">
+                      <Code2 size={15} />
+                      {project.source}
+                    </div>
+                  </div>
                 ) : (
                   <div className="portfolio-card-actions">
                     <button

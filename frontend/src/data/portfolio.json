@@ -82,6 +82,7 @@
       "title": "天气 Agent：LLM + LangGraph + MCP",
       "category": "Agent 工具调用",
       "status": "可演示",
+      "caseId": "weather",
       "source": "llm_agent/flask_agent_demo",
       "description": "把天气查询做成完整 Agent 闭环：LLM 负责决策，LangGraph 负责循环控制，MCP 天气工具负责查询真实数据，Flask 暴露 API，MySQL 保存会话、消息、任务日志、trace 和缓存。",
       "highlights": [
@@ -95,6 +96,7 @@
       "title": "电商客服 / 运营多 Agent",
       "category": "多 Agent 编排",
       "status": "可运行",
+      "caseId": "ecommerce",
       "source": "llm_agent/ecommerce_agent_demo",
       "description": "面向电商场景的多 Agent 系统：Router Agent 做消息路由，CustomerService Agent 处理订单/物流/退款，Ops Agent 处理库存/销量/补货，Knowledge Agent 提供规则检索。",
       "highlights": [
@@ -108,6 +110,7 @@
       "title": "服务器监控 Agent",
       "category": "运维 Agent / SRE",
       "status": "可离线演示",
+      "caseId": "server-monitor",
       "source": "llm_agent/server_monitor_agent",
       "description": "一个真实可运行的运维监控 Agent：通过 MCP 工具采集 CPU、内存、磁盘、端口和进程信息，把快照写入 SQLite，再由 LangGraph harness 汇总结论和排障建议。",
       "highlights": [
@@ -121,6 +124,7 @@
       "title": "MCP 天气工具封装",
       "category": "协议 / 工具标准化",
       "status": "无需 API Key",
+      "caseId": "mcp-weather",
       "source": "llm_agent/mcp_demo",
       "description": "把免费的 Open-Meteo REST API 封装为标准 MCP Server，让 Cursor、Claude Desktop 或 LangGraph Agent 能用同一套 Tools、Resources 和 Prompts。",
       "highlights": [
@@ -134,6 +138,7 @@
       "title": "AI Agent 学习笔记体系",
       "category": "LLM 知识体系",
       "status": "结构化文档",
+      "caseId": "agent-notes",
       "source": "llm_agent/AI_Agent_学习笔记.md",
       "description": "把 LLM、Agent、Harness、LangGraph、MCP、Spring AI 等概念整理成可讲清楚、可面试复盘、可和代码 demo 对应的学习体系。",
       "highlights": [
@@ -196,6 +201,213 @@
       "trace": ["写入指标快照", "评估告警阈值", "检查 TCP 端口", "输出证据、结论和建议"]
     }
   ],
+  "agentCases": {
+    "weather": {
+      "title": "天气 Agent 静态演示",
+      "subtitle": "LLM + LangGraph + MCP 天气工具调用闭环",
+      "source": "llm_agent/flask_agent_demo",
+      "overview": "这个案例展示一个天气咨询 Agent 如何从用户问题出发，先判断是否需要查询实时天气，再通过 MCP 工具调用 Open-Meteo，最后把工具结果转成穿衣和出行建议。",
+      "metrics": [
+        { "label": "工具", "value": "2", "note": "get_current_weather / get_forecast" },
+        { "label": "运行模式", "value": "2", "note": "LLM 模式 + 规则兜底模式" },
+        { "label": "状态记录", "value": "MySQL", "note": "会话、消息、任务日志、trace、cache" }
+      ],
+      "demo": {
+        "question": "上海未来三天天气怎么样，出门要带伞吗？",
+        "route": "weather_forecast",
+        "agents": ["Weather Agent", "MCP Weather Tool"],
+        "cacheHit": "false",
+        "answer": "已查询上海未来 3 天预报。整体以多云到小雨为主，建议随身带伞；如果早晚出门，可以准备薄外套。"
+      },
+      "trace": [
+        { "phase": "用户提问", "detail": "识别到「未来三天」「带伞」等天气预报意图。" },
+        { "phase": "大脑决策", "detail": "选择 get_forecast(city='上海', days=3)，不直接编造天气。" },
+        { "phase": "工具执行", "detail": "通过 MCP stdio 调用 weather_mcp_server.py，内部完成城市名到经纬度转换。" },
+        { "phase": "结果汇总", "detail": "把天气工具返回文本整理成中文出行建议，并写入任务 trace。" }
+      ],
+      "panels": [
+        {
+          "title": "工程亮点",
+          "items": ["LangGraph 构建 chatbot <-> tools 循环图", "MCP 工具统一封装真实 REST API", "规则模式不依赖 API Key，便于面试现场演示"]
+        },
+        {
+          "title": "核心接口",
+          "items": ["POST /api/ask", "GET /api/sessions/<session_id>", "GET /api/tasks/<task_id>", "GET /api/metrics"]
+        }
+      ],
+      "apiExample": {
+        "method": "POST",
+        "endpoint": "/api/ask",
+        "body": "{ \"question\": \"上海未来三天天气怎么样，出门要带伞吗？\" }",
+        "response": "{ \"answer\": \"...\", \"available_tools\": [\"get_current_weather\", \"get_forecast\"], \"trace\": [...] }"
+      }
+    },
+    "ecommerce": {
+      "title": "电商客服 / 运营多 Agent 静态演示",
+      "subtitle": "Router + CustomerService + Ops + Knowledge 的多 Agent 协作",
+      "source": "llm_agent/ecommerce_agent_demo",
+      "overview": "这个案例模拟电商客服和运营共线的复杂问题：用户同时提到订单物流和耳机库存，系统需要自动路由为 hybrid 任务，调度客服、运营和知识库 Agent 一起生成处理建议。",
+      "metrics": [
+        { "label": "路由结果", "value": "hybrid", "note": "同时命中客服与运营意图" },
+        { "label": "参与 Agent", "value": "3", "note": "客服 / 运营 / 知识库" },
+        { "label": "可观测字段", "value": "5+", "note": "route、agents、trace、task_id、cache_hit" }
+      ],
+      "demo": {
+        "question": "耳机库存快没了，用户还在问订单 DD202607070001 物流，怎么处理？",
+        "route": "hybrid",
+        "agents": ["CustomerServiceAgent", "OpsAgent", "KnowledgeAgent"],
+        "cacheHit": "false",
+        "answer": "订单 DD202607070001 当前为已付款、已发货，先同步物流进度并安抚用户；降噪蓝牙耳机库存仅 3 件且近 7 日销量 214，建议运营侧立即补货并降低活动曝光。"
+      },
+      "trace": [
+        { "phase": "RouterAgent", "detail": "命中「订单 / 物流」和「库存 / 运营」关键词，route=hybrid。" },
+        { "phase": "CustomerServiceAgent", "detail": "提取订单号 DD202607070001，查询订单、物流、退款状态，并生成客服处理建议。" },
+        { "phase": "OpsAgent", "detail": "读取商品库存和近 7 日销量，识别库存预警并输出补货建议。" },
+        { "phase": "KnowledgeAgent", "detail": "检索售后政策和大促库存预警规则，为回答补充业务依据。" },
+        { "phase": "Orchestrator", "detail": "汇总多 Agent 结果，写入 agent_tasks / agent_task_events，返回 trace 和 task_id。" }
+      ],
+      "panels": [
+        {
+          "title": "业务表",
+          "items": ["user_accounts：用户", "products：商品、库存、近 7 日销量", "orders / order_items：订单与明细", "customer_tickets：客服工单"]
+        },
+        {
+          "title": "Agent 系统表",
+          "items": ["agent_sessions / agent_messages：上下文记忆", "agent_tasks / agent_task_events：任务与 trace", "prompt_versions：提示词版本", "knowledge_documents：知识库", "llm_cache：缓存", "evaluation_cases：评测用例"]
+        },
+        {
+          "title": "岗位能力映射",
+          "items": ["多 Agent 调度体系", "任务拆解与角色协作", "上下文记忆与缓存", "稳定性与可观测性", "RAG / 知识库扩展"]
+        }
+      ],
+      "apiExample": {
+        "method": "POST",
+        "endpoint": "/api/chat",
+        "body": "{ \"user_id\": 1, \"session_id\": null, \"message\": \"耳机库存快没了，用户还在问订单 DD202607070001 物流，怎么处理？\" }",
+        "response": "{ \"route\": \"hybrid\", \"agents\": [\"customer_service\", \"ops\", \"knowledge\"], \"trace\": [...], \"task_id\": 1024, \"cache_hit\": false }"
+      }
+    },
+    "server-monitor": {
+      "title": "服务器监控 Agent 静态演示",
+      "subtitle": "SRE 场景下的 MCP 工具采集、SQLite 留痕和 LangGraph 排障",
+      "source": "llm_agent/server_monitor_agent",
+      "overview": "这个案例展示 Agent 如何诊断本机服务器健康状态：先通过 MCP 采集指标并写入 SQLite，再评估 CPU/内存/磁盘阈值，必要时检查端口并创建事件。",
+      "metrics": [
+        { "label": "MCP 工具", "value": "6", "note": "指标采集、快照、告警、端口、事件" },
+        { "label": "数据留痕", "value": "SQLite", "note": "ops_monitor.db 保存指标快照" },
+        { "label": "演示模式", "value": "rule", "note": "不依赖外部 LLM 也能跑通" }
+      ],
+      "demo": {
+        "question": "帮我诊断这台服务器有没有 CPU、内存、磁盘告警，并检查 5000 端口。",
+        "route": "ops_monitor_diagnosis",
+        "agents": ["SRE Agent", "MCP Monitor Tools"],
+        "cacheHit": "not_applicable",
+        "answer": "当前采样显示 CPU、内存、磁盘均未超过阈值；5000 端口需结合本地服务状态确认。建议保留本次快照，并在异常时写入 incident。"
+      },
+      "trace": [
+        { "phase": "record_metric_snapshot", "detail": "采集 CPU、内存、磁盘、进程数并写入 SQLite。" },
+        { "phase": "evaluate_alerts", "detail": "按 CPU 80%、内存 85%、磁盘 90% 的阈值评估资源告警。" },
+        { "phase": "check_tcp_port", "detail": "检测 127.0.0.1:5000 是否可达。" },
+        { "phase": "final_answer", "detail": "输出结论、证据和排障建议，保留 trace 便于复盘。" }
+      ],
+      "panels": [
+        {
+          "title": "MCP 工具",
+          "items": ["collect_host_metrics", "record_metric_snapshot", "query_recent_snapshots", "evaluate_alerts", "check_tcp_port", "create_incident"]
+        },
+        {
+          "title": "Harness 验证",
+          "items": ["验证 MCP server 可通过 stdio 调用", "验证 SQLite 收到指标快照", "验证 LangGraph Agent 能规划、调工具并回答"]
+        }
+      ],
+      "apiExample": {
+        "method": "CLI",
+        "endpoint": "python agent.py",
+        "body": "\"帮我诊断这台服务器有没有 CPU、内存、磁盘告警，并检查 5000 端口\"",
+        "response": "{ \"answer\": \"...\", \"available_tools\": [...], \"trace\": [...] }"
+      }
+    },
+    "mcp-weather": {
+      "title": "MCP 天气工具封装静态演示",
+      "subtitle": "把 Open-Meteo REST API 封装成标准 MCP Tools / Resources / Prompts",
+      "source": "llm_agent/mcp_demo",
+      "overview": "这个案例展示企业里常见的 MCP 落地方式：把现有 HTTP API 封装为标准工具，让 Cursor、Claude Desktop 或 LangGraph Agent 都能统一调用。",
+      "metrics": [
+        { "label": "Tools", "value": "2", "note": "当前天气、未来预报" },
+        { "label": "Resources", "value": "1", "note": "weather://codes" },
+        { "label": "Prompts", "value": "1", "note": "dress_advice(city)" }
+      ],
+      "demo": {
+        "question": "北京今天天气怎么样，适合穿什么？",
+        "route": "mcp_tool_call",
+        "agents": ["MCP Client", "weather-api-demo"],
+        "cacheHit": "not_applicable",
+        "answer": "客户端可先调用 get_current_weather('北京')，再套用 dress_advice 提示词生成穿衣建议。"
+      },
+      "trace": [
+        { "phase": "工具注册", "detail": "FastMCP 根据函数签名和 docstring 生成工具 schema。" },
+        { "phase": "参数消化", "detail": "_geocode 把城市名转成经纬度，调用方不需要理解第三方 API 参数。" },
+        { "phase": "REST 调用", "detail": "httpx 请求 Open-Meteo forecast 接口并转换天气代码。" },
+        { "phase": "统一返回", "detail": "把网络错误、参数错误都转换成 Agent 可读文本。" }
+      ],
+      "panels": [
+        {
+          "title": "封装要点",
+          "items": ["工具描述即接口文档", "内部消化前置步骤", "统一异常处理", "一次编写多处复用"]
+        },
+        {
+          "title": "可接入客户端",
+          "items": ["Cursor MCP", "Claude Desktop", "LangGraph MultiServerMCPClient", "自研 Agent Harness"]
+        }
+      ],
+      "apiExample": {
+        "method": "MCP",
+        "endpoint": "get_forecast",
+        "body": "{ \"city\": \"上海\", \"days\": 3 }",
+        "response": "中国上海市上海 未来 3 天预报：..."
+      }
+    },
+    "agent-notes": {
+      "title": "AI Agent 学习笔记静态展示",
+      "subtitle": "从概念到代码案例的 LLM / Agent / MCP / LangGraph 知识体系",
+      "source": "llm_agent/AI_Agent_学习笔记.md",
+      "overview": "这个页面把学习笔记里的核心知识压缩成面试可讲的结构：LLM 是大脑、MCP 是手、LangGraph 是流程控制，Agent Harness 负责循环、工具调度和上下文管理。",
+      "metrics": [
+        { "label": "覆盖主题", "value": "6", "note": "LLM、Agent、Harness、LangGraph、MCP、Spring AI" },
+        { "label": "配套代码", "value": "4", "note": "天气、MCP、电商、监控" },
+        { "label": "面试表达", "value": "清晰", "note": "概念、链路、局限、工程化" }
+      ],
+      "demo": {
+        "question": "LLM、Agent、MCP、LangGraph 之间是什么关系？",
+        "route": "knowledge_summary",
+        "agents": ["Learning Notes", "Code Demos"],
+        "cacheHit": "not_applicable",
+        "answer": "LLM 提供语言和推理能力；MCP 把外部工具标准化给 LLM 使用；LangGraph 管理思考、调工具、再思考的状态循环；Agent Harness 把这些组合成可运行系统。"
+      },
+      "trace": [
+        { "phase": "LLM", "detail": "大语言模型负责理解问题、生成计划和回答，但本身不能直接查库或调用系统。" },
+        { "phase": "MCP", "detail": "把天气 API、服务器指标、数据库操作封装成统一工具接口。" },
+        { "phase": "LangGraph", "detail": "用图结构管理节点、条件边、工具循环和状态传递。" },
+        { "phase": "Harness", "detail": "把模型、工具、记忆、日志、错误处理和兜底策略组装成应用。" }
+      ],
+      "panels": [
+        {
+          "title": "可讲清楚的概念",
+          "items": ["LLM 的幻觉和知识边界", "Agent 的工具调用循环", "MCP 的协议价值", "LangGraph 的状态编排"]
+        },
+        {
+          "title": "对应代码案例",
+          "items": ["天气 Agent：工具调用闭环", "电商 Agent：多角色协作", "监控 Agent：运维工具调用", "MCP Demo：工具标准化"]
+        }
+      ],
+      "apiExample": {
+        "method": "Docs",
+        "endpoint": "AI_Agent_学习笔记.md",
+        "body": "LLM + 工具 + 循环 = Agent",
+        "response": "能查真实数据、能执行操作、能保留过程 trace 的 AI 应用形态。"
+      }
+    }
+  },
   "timeline": [
     {
       "time": "阶段 01",
