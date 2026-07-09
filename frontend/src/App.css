@@ -2230,21 +2230,42 @@
 }
 
 .portfolio-nav-links a,
+.portfolio-nav-links button,
 .portfolio-secondary-btn,
-.portfolio-card-link {
+.portfolio-card-link,
+.portfolio-status-link {
   color: var(--text-secondary);
   text-decoration: none;
 }
 
-.portfolio-nav-links a {
+.portfolio-brand,
+.portfolio-nav-links button,
+.portfolio-primary-btn,
+.portfolio-card-link,
+.portfolio-status-link {
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.portfolio-brand,
+.portfolio-nav-links button,
+.portfolio-card-link {
+  background: transparent;
+}
+
+.portfolio-nav-links a,
+.portfolio-nav-links button {
   padding: 9px 12px;
   border-radius: 999px;
   font-size: 14px;
 }
 
 .portfolio-nav-links a:hover,
+.portfolio-nav-links button:hover,
 .portfolio-secondary-btn:hover,
-.portfolio-card-link:hover {
+.portfolio-card-link:hover,
+.portfolio-status-link:hover {
   color: var(--text-primary);
   background: rgba(255, 255, 255, 0.06);
 }
@@ -2474,6 +2495,15 @@
   font-size: 12px;
 }
 
+.portfolio-status-link {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(126, 226, 168, 0.12);
+  color: #8ff0b4;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
 .portfolio-project-card h3 {
   margin: 8px 0 12px;
   font-size: 25px;
@@ -2511,6 +2541,13 @@
   gap: 8px;
   padding: 10px 12px;
   border-radius: 12px;
+}
+
+.portfolio-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
 }
 
 .portfolio-source-path {
@@ -2626,6 +2663,22 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.portfolio-skill-groups {
+  display: grid;
+  gap: 14px;
+}
+
+.portfolio-skill-group {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.portfolio-skill-group h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 
 .portfolio-timeline {

@@ -26,21 +26,56 @@
     }
   ],
   "skills": [
-    "LLM 应用开发",
-    "Agent Harness",
-    "LangGraph",
-    "MCP Server",
-    "Tool Calling",
-    "多 Agent 编排",
-    "RAG / 知识库",
-    "Prompt 版本管理",
-    "上下文记忆",
-    "LLM Cache",
-    "Trace 可观测性",
-    "Flask / FastAPI",
-    "React / Vite",
-    "MySQL / SQLite",
-    "GitHub Pages"
+    "Python / asyncio",
+    "Flask / Django",
+    "Kafka / gRPC / Redis",
+    "MySQL / MongoDB / Elasticsearch",
+    "Docker / Jenkins / Kubernetes",
+    "LLM 多模型解析",
+    "Prompt 工程",
+    "Agent Harness / MCP / LangGraph"
+  ],
+  "skillGroups": [
+    {
+      "title": "语言 / 框架",
+      "items": ["Python", "asyncio 异步编程", "Flask", "Django", "了解 Java / Spring Boot"]
+    },
+    {
+      "title": "常用库",
+      "items": ["pandas", "numpy", "pdfplumber / pdfminer", "openpyxl / xlsxwriter"]
+    },
+    {
+      "title": "消息 / 通信",
+      "items": ["Kafka", "Protobuf / gRPC", "Redis", "Nacos 配置中心", "SFTP"]
+    },
+    {
+      "title": "数据库 / 搜索",
+      "items": ["MySQL", "MongoDB", "Elasticsearch", "Oracle"]
+    },
+    {
+      "title": "运维 / 高可用",
+      "items": ["Docker / docker-compose", "Jenkins", "Kubernetes", "Nginx / HAProxy", "Keepalived", "ZooKeeper", "Git / GitLab CI", "Cron", "私有 PyPI / Harbor 镜像仓库", "企业微信告警"]
+    },
+    {
+      "title": "云 / 安全",
+      "items": ["腾讯云 COS", "PGP / AES + KMS 加解密"]
+    },
+    {
+      "title": "前端（了解）",
+      "items": ["Vue", "React", "Element UI 响应式框架"]
+    },
+    {
+      "title": "数据应用",
+      "items": ["数据中台", "实时数据同步", "Metabase BI 看板", "用户行为分析"]
+    },
+    {
+      "title": "机器学习",
+      "items": ["TensorFlow", "scikit-learn（建模与预测）"]
+    },
+    {
+      "title": "AI / LLM",
+      "items": ["LLM 多模态结单解析", "Prompt 工程", "多模型并行解析与校验合并", "Azure OpenAI / Gemini / Qwen / DeepSeek", "Skill / Rules 等 AI 编程技巧", "Agent Harness", "MCP 工具协议", "LangGraph / Spring AI 编排"]
+    }
   ],
   "projects": [
     {

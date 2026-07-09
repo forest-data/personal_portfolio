@@ -15,11 +15,16 @@ import portfolio from "../data/portfolio.json";
 
 const projectIcons = [Layers3, Database, BookOpenText, Sparkles, Rocket];
 
+function scrollToSection(sectionId) {
+  document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 export default function PortfolioPage() {
   const {
     profile,
     heroStats,
     skills,
+    skillGroups,
     projects,
     agentArchitecture,
     agentScenarios,
@@ -30,17 +35,25 @@ export default function PortfolioPage() {
   return (
     <main className="portfolio-page">
       <nav className="portfolio-nav" aria-label="作品集导航">
-        <a className="portfolio-brand" href="#top">
+        <button className="portfolio-brand" type="button" onClick={() => scrollToSection("top")}>
           <span>
             <Sparkles size={18} />
           </span>
           {profile.name}
-        </a>
+        </button>
         <div className="portfolio-nav-links">
-          <a href="#projects">项目</a>
-          <a href="#agent-flow">Agent 架构</a>
-          <a href="#skills">技能</a>
-          <a href="#notes">备注</a>
+          <button type="button" onClick={() => scrollToSection("projects")}>
+            项目
+          </button>
+          <button type="button" onClick={() => scrollToSection("agent-flow")}>
+            Agent 架构
+          </button>
+          <button type="button" onClick={() => scrollToSection("skills")}>
+            技能
+          </button>
+          <button type="button" onClick={() => scrollToSection("notes")}>
+            备注
+          </button>
           <Link to="/login">登录演示</Link>
         </div>
       </nav>
@@ -56,10 +69,14 @@ export default function PortfolioPage() {
           <p className="portfolio-summary">{profile.summary}</p>
 
           <div className="portfolio-actions">
-            <a className="portfolio-primary-btn" href="#projects">
+            <button
+              className="portfolio-primary-btn"
+              type="button"
+              onClick={() => scrollToSection("projects")}
+            >
               查看作品
               <ArrowRight size={16} />
-            </a>
+            </button>
             <a
               className="portfolio-secondary-btn"
               href={profile.repository}
@@ -114,7 +131,19 @@ export default function PortfolioPage() {
                   <div className="portfolio-project-icon">
                     <Icon size={20} />
                   </div>
-                  <span>{project.status}</span>
+                  {project.route ? (
+                    <Link className="portfolio-status-link" to={project.route}>
+                      {project.status}
+                    </Link>
+                  ) : (
+                    <button
+                      className="portfolio-status-link"
+                      type="button"
+                      onClick={() => scrollToSection("agent-flow")}
+                    >
+                      {project.status}
+                    </button>
+                  )}
                 </div>
                 <p className="portfolio-project-category">{project.category}</p>
                 <h3>{project.title}</h3>
@@ -134,13 +163,23 @@ export default function PortfolioPage() {
 
                 {project.route ? (
                   <Link className="portfolio-card-link" to={project.route}>
-                    进入演示
+                    进入工作台
                     <ExternalLink size={15} />
                   </Link>
                 ) : (
-                  <div className="portfolio-source-path">
-                    <Code2 size={15} />
-                    {project.source}
+                  <div className="portfolio-card-actions">
+                    <button
+                      className="portfolio-card-link"
+                      type="button"
+                      onClick={() => scrollToSection("agent-flow")}
+                    >
+                      查看案例链路
+                      <ArrowRight size={15} />
+                    </button>
+                    <div className="portfolio-source-path">
+                      <Code2 size={15} />
+                      {project.source}
+                    </div>
                   </div>
                 )}
               </article>
@@ -190,13 +229,28 @@ export default function PortfolioPage() {
         <div className="portfolio-panel">
           <div className="portfolio-section-head compact">
             <p className="portfolio-kicker">Skill Stack</p>
-            <h2>技能关键词</h2>
+            <h2>简历技能栈</h2>
           </div>
-          <div className="portfolio-skill-cloud">
-            {skills.map((skill) => (
-              <span key={skill}>{skill}</span>
-            ))}
-          </div>
+          {skillGroups?.length ? (
+            <div className="portfolio-skill-groups">
+              {skillGroups.map((group) => (
+                <article className="portfolio-skill-group" key={group.title}>
+                  <h3>{group.title}</h3>
+                  <div className="portfolio-skill-cloud">
+                    {group.items.map((skill) => (
+                      <span key={skill}>{skill}</span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="portfolio-skill-cloud">
+              {skills.map((skill) => (
+                <span key={skill}>{skill}</span>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="portfolio-panel">

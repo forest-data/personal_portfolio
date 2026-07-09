@@ -48,27 +48,27 @@ export default function AuthPage({ mode = "login" }) {
           <Sparkles size={16} />
           参考现代 AI SaaS 工作台风格
         </div>
-        <h1>让 Image2Video 成为系统中的一个能力模块</h1>
+        <h1>AI Agent / LLM 应用工作台</h1>
         <p>
-          这一版先搭出统一登录、注册、主系统工作台和 Image2Video
-          功能入口，方便你继续扩展更多 AI 工具模块。
+          这里用于承载作品集里的 AI 产品化演示：统一入口、业务工作台、
+          数据看板和可扩展的 Agent 工具模块。
         </p>
 
         <div className="auth-showcase-grid">
           <div className="showcase-card">
             <span>01</span>
-            <strong>统一账号入口</strong>
-            <p>支持注册、登录和基础身份态持久化。</p>
+            <strong>统一演示入口</strong>
+            <p>用于本地后端演示登录、身份态和工作台访问流程。</p>
           </div>
           <div className="showcase-card">
             <span>02</span>
-            <strong>系统级工作台</strong>
-            <p>用侧栏和卡片式布局承载多个业务能力。</p>
+            <strong>AI 应用工作台</strong>
+            <p>用侧栏和卡片式布局承载 Agent、数据和业务模块。</p>
           </div>
           <div className="showcase-card">
             <span>03</span>
-            <strong>能力模块化</strong>
-            <p>Image2Video 现在是可独立进入的功能页。</p>
+            <strong>Agent 扩展底座</strong>
+            <p>后续可接入 MCP 工具、LLM 后端和多 Agent 服务。</p>
           </div>
         </div>
       </div>
