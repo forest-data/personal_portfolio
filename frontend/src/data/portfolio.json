@@ -1,128 +1,192 @@
 {
   "profile": {
     "name": "Forest Data",
-    "role": "AI 应用 / 数据产品开发者",
+    "role": "AI Agent / LLM 应用开发者",
     "location": "China",
-    "tagline": "把 AI 能力、数据看板和业务流程做成能直接演示的产品原型。",
-    "summary": "这个作品集基于 ai_pro 项目整理，展示从前端交互、后端接口、文件数据存储到 AI 工具化工作流的完整实现能力。页面内容全部来自本 JSON 文件，上传到 GitHub 后可以直接查看和维护。",
+    "tagline": "围绕 LLM、Agent、MCP、LangGraph 和业务自动化，做可解释、可观测、可演示的 AI 应用。",
+    "summary": "这个作品集重点展示 AI Agent 工程能力：从 MCP 工具封装、LangGraph 调度、规则/LLM 双模式大脑，到电商客服运营多 Agent、服务器监控 Agent 和业务工作台。页面内容全部来自本 JSON 文件，适合在 GitHub Pages 上作为静态作品集展示。",
     "github": "https://github.com/forest-data",
     "repository": "https://github.com/forest-data/personal_portfolio"
   },
   "heroStats": [
     {
-      "label": "作品模块",
-      "value": "5+",
-      "note": "覆盖运营、记账、股票学习、AI 内容生成"
+      "label": "Agent 案例",
+      "value": "5",
+      "note": "天气、电商客服、运营、服务器监控、MCP 工具封装"
     },
     {
-      "label": "技术栈",
-      "value": "React + FastAPI",
-      "note": "前后端分离，可本地启动完整演示"
+      "label": "核心方向",
+      "value": "LLM + MCP",
+      "note": "工具调用、流程编排、上下文记忆和可观测 trace"
     },
     {
-      "label": "数据方式",
-      "value": "File Based",
-      "note": "作品集内容使用 JSON 文件维护"
+      "label": "展示方式",
+      "value": "静态可访问",
+      "note": "GitHub Pages 展示作品，后端 demo 可本地或云端部署"
     }
   ],
   "skills": [
+    "LLM 应用开发",
+    "Agent Harness",
+    "LangGraph",
+    "MCP Server",
+    "Tool Calling",
+    "多 Agent 编排",
+    "RAG / 知识库",
+    "Prompt 版本管理",
+    "上下文记忆",
+    "LLM Cache",
+    "Trace 可观测性",
+    "Flask / FastAPI",
     "React / Vite",
-    "FastAPI / Python",
-    "REST API",
-    "数据看板",
-    "AI 工具产品化",
-    "文件型数据存储",
-    "交互原型",
+    "MySQL / SQLite",
     "GitHub Pages"
   ],
   "projects": [
     {
-      "title": "Aether Studio 多功能工作台",
-      "category": "AI 产品集成",
+      "title": "天气 Agent：LLM + LangGraph + MCP",
+      "category": "Agent 工具调用",
       "status": "可演示",
-      "route": "/app",
-      "description": "一个统一登录、侧边栏导航、模块化业务页面和内置 AI 助手的工作台。适合作为 AI 工具矩阵或内部运营系统的基础框架。",
+      "source": "llm_agent/flask_agent_demo",
+      "description": "把天气查询做成完整 Agent 闭环：LLM 负责决策，LangGraph 负责循环控制，MCP 天气工具负责查询真实数据，Flask 暴露 API，MySQL 保存会话、消息、任务日志、trace 和缓存。",
       "highlights": [
-        "统一账号入口与身份态持久化",
-        "模块化路由和统一应用 Shell",
-        "内置智能助手面板，可根据当前页面提供操作建议"
+        "用 LangGraph 搭建「大脑思考 <-> 工具执行」循环图",
+        "通过 MCP 接入 Open-Meteo 天气工具，避免 LLM 编造天气",
+        "支持 LLM 模式和规则模式，离线也能演示完整 trace"
       ],
-      "techStack": ["React", "React Router", "FastAPI", "Axios"]
+      "techStack": ["LangGraph", "MCP", "Flask", "MySQL", "ChatOpenAI"]
     },
     {
-      "title": "运营 BI 看板",
-      "category": "数据产品",
-      "status": "静态高保真",
-      "route": "/app",
-      "description": "面向运营复盘的增长数据看板，包含活跃趋势、渠道来源、转化漏斗、重点项目和风险预警。",
-      "highlights": [
-        "用 SVG 和 CSS 实现趋势图、进度条和分布图",
-        "信息层级适合周报、日会和投屏展示",
-        "结构可替换为真实接口数据"
-      ],
-      "techStack": ["React", "CSS Grid", "Data Visualization"]
-    },
-    {
-      "title": "个人记账台",
-      "category": "业务系统",
-      "status": "可交互",
-      "route": "/app/finance",
-      "description": "个人收支管理模块，支持收支录入、分类统计、趋势分析和流水查看。",
-      "highlights": [
-        "后端用 JSON 文件保存交易记录",
-        "前端提供统计卡片、分类列表和流水表格",
-        "适合展示 CRUD、状态管理和接口联调能力"
-      ],
-      "techStack": ["React", "FastAPI", "JSON Storage"]
-    },
-    {
-      "title": "股票概念理解与选股辅助",
-      "category": "金融学习工具",
-      "status": "可扩展",
-      "route": "/app/stock-concepts",
-      "description": "把常见股票指标、行业概念和选股偏好整理成可浏览、可学习、可生成扫描结果的工具页。",
-      "highlights": [
-        "本地知识数据文件驱动概念学习页面",
-        "用户偏好可保存到后端数据文件",
-        "适合继续接入行情接口或 LLM 解释能力"
-      ],
-      "techStack": ["React", "Python", "Local Data"]
-    },
-    {
-      "title": "Image2Video 图片转视频工具",
-      "category": "AI 内容生产",
+      "title": "电商客服 / 运营多 Agent",
+      "category": "多 Agent 编排",
       "status": "可运行",
-      "route": "/app/image-to-video",
-      "description": "上传多张图片并配置字幕、分辨率、帧率和转场，一键生成可预览和下载的视频。",
+      "source": "llm_agent/ecommerce_agent_demo",
+      "description": "面向电商场景的多 Agent 系统：Router Agent 做消息路由，CustomerService Agent 处理订单/物流/退款，Ops Agent 处理库存/销量/补货，Knowledge Agent 提供规则检索。",
       "highlights": [
-        "支持图片上传、选择排序和字幕配置",
-        "后端基于 imageio-ffmpeg 生成视频",
-        "适合短视频批量生产场景的 MVP 原型"
+        "Orchestrator 负责路由、任务拆解、Agent 调度和结果汇总",
+        "MySQL 设计包含会话记忆、任务事件、Prompt 版本、知识库、缓存和评测用例",
+        "返回 route、agents、trace、task_id、cache_hit，方便观察执行过程"
       ],
-      "techStack": ["FastAPI", "Pillow", "imageio-ffmpeg", "React"]
+      "techStack": ["Flask", "SQLAlchemy", "MySQL", "Multi-Agent", "RAG"]
+    },
+    {
+      "title": "服务器监控 Agent",
+      "category": "运维 Agent / SRE",
+      "status": "可离线演示",
+      "source": "llm_agent/server_monitor_agent",
+      "description": "一个真实可运行的运维监控 Agent：通过 MCP 工具采集 CPU、内存、磁盘、端口和进程信息，把快照写入 SQLite，再由 LangGraph harness 汇总结论和排障建议。",
+      "highlights": [
+        "MCP Server 暴露 collect、record、query、alert、port、incident 等工具",
+        "规则大脑模式不依赖外部 LLM，但仍完整走 LangGraph + MCP 链路",
+        "harness.py 一键验证 MCP、SQLite、Agent 三层闭环"
+      ],
+      "techStack": ["LangGraph", "MCP", "SQLite", "psutil", "Flask"]
+    },
+    {
+      "title": "MCP 天气工具封装",
+      "category": "协议 / 工具标准化",
+      "status": "无需 API Key",
+      "source": "llm_agent/mcp_demo",
+      "description": "把免费的 Open-Meteo REST API 封装为标准 MCP Server，让 Cursor、Claude Desktop 或 LangGraph Agent 能用同一套 Tools、Resources 和 Prompts。",
+      "highlights": [
+        "工具描述由类型注解和 docstring 自动变成 LLM 可理解的 schema",
+        "内部消化城市名到经纬度的前置步骤，调用方只传自然城市名",
+        "同时覆盖 Tools、Resources、Prompts 三类 MCP 能力"
+      ],
+      "techStack": ["MCP", "FastMCP", "httpx", "Open-Meteo"]
+    },
+    {
+      "title": "AI Agent 学习笔记体系",
+      "category": "LLM 知识体系",
+      "status": "结构化文档",
+      "source": "llm_agent/AI_Agent_学习笔记.md",
+      "description": "把 LLM、Agent、Harness、LangGraph、MCP、Spring AI 等概念整理成可讲清楚、可面试复盘、可和代码 demo 对应的学习体系。",
+      "highlights": [
+        "用「LLM 是大脑、MCP 是手、LangGraph 是流程控制」解释核心关系",
+        "配套天气 Agent 和服务器监控 Agent，文档概念能落到代码",
+        "覆盖工具调用、幻觉控制、状态循环、协议接入和工程落地"
+      ],
+      "techStack": ["LLM", "Agent", "LangGraph", "MCP", "Spring AI"]
+    },
+    {
+      "title": "Aether Studio AI 工作台",
+      "category": "AI 产品化界面",
+      "status": "GitHub Pages 可看",
+      "route": "/app",
+      "description": "作品集内置的前端工作台，包含运营看板、财务记账、股票概念学习、交易画像和 Image2Video 等模块，可作为 AI 应用产品化界面的补充展示。",
+      "highlights": [
+        "统一 Shell、侧边栏导航和悬浮 AI Assistant 面板",
+        "多个业务模块共用一个产品界面，展示 AI 工具矩阵思路",
+        "适合作为后续接入真实后端或云端 Agent 服务的前端底座"
+      ],
+      "techStack": ["React", "Vite", "FastAPI", "AI Assistant"]
+    }
+  ],
+  "agentArchitecture": [
+    {
+      "step": "01",
+      "title": "工具标准化",
+      "detail": "用 MCP Server 把 REST API、本机指标、数据库读写等能力封装成可被 LLM 调用的工具。"
+    },
+    {
+      "step": "02",
+      "title": "大脑决策",
+      "detail": "LLM 或规则大脑根据用户问题选择工具；规则模式保证没有 API Key 时也能演示完整链路。"
+    },
+    {
+      "step": "03",
+      "title": "流程编排",
+      "detail": "LangGraph / Orchestrator 管理思考、调工具、读结果、再思考的循环，支持多 Agent 协作。"
+    },
+    {
+      "step": "04",
+      "title": "状态与可观测",
+      "detail": "用 MySQL / SQLite 保存会话、消息、任务日志、trace、cache_hit 和指标快照，方便排查与评估。"
+    }
+  ],
+  "agentScenarios": [
+    {
+      "name": "天气咨询",
+      "question": "上海未来三天天气怎么样，出门要带伞吗？",
+      "trace": ["识别天气/预报意图", "调用 get_forecast MCP 工具", "结合天气结果生成穿衣与出行建议"]
+    },
+    {
+      "name": "电商客服运营",
+      "question": "耳机库存快没了，用户还在问订单 DD202607070001 物流，怎么处理？",
+      "trace": ["Router 命中 hybrid", "客服 Agent 查订单物流", "运营 Agent 查库存销量", "知识 Agent 补充售后/补货规则"]
+    },
+    {
+      "name": "服务器监控",
+      "question": "诊断这台服务器有没有 CPU、内存、磁盘告警，并检查 5000 端口。",
+      "trace": ["写入指标快照", "评估告警阈值", "检查 TCP 端口", "输出证据、结论和建议"]
     }
   ],
   "timeline": [
     {
       "time": "阶段 01",
-      "title": "搭建前后端分离应用",
-      "detail": "完成 React + FastAPI 基础工程、登录注册、接口封装和路由保护。"
+      "title": "理解 LLM 与 Agent 基础",
+      "detail": "整理 LLM、Agent、Harness、MCP、LangGraph、Spring AI 的概念边界和协作方式。"
     },
     {
       "time": "阶段 02",
-      "title": "扩展业务模块",
-      "detail": "加入运营看板、记账台、股票概念学习、交易画像和图片转视频工具。"
+      "title": "做出可运行的工具调用 Agent",
+      "detail": "完成天气 MCP Server、天气 Agent 和服务器监控 Agent，验证工具调用、trace 和离线规则模式。"
     },
     {
       "time": "阶段 03",
-      "title": "作品集化整理",
-      "detail": "新增公开个人主页、文件型作品集数据和 GitHub Pages 发布配置。"
+      "title": "扩展到多 Agent 业务场景",
+      "detail": "在电商客服/运营场景里加入 Router、CustomerService、Ops、Knowledge 多 Agent 协作。"
+    },
+    {
+      "time": "阶段 04",
+      "title": "作品集化展示",
+      "detail": "把 llm_agent 案例整理进 GitHub Pages 静态主页，突出 AI / Agent / LLM 方向。"
     }
   ],
   "changeNotes": [
-    "新增公开个人主页，默认访问 / 即可查看作品集。",
-    "作品集文案、项目列表、技能标签和时间线统一维护在 frontend/src/data/portfolio.json。",
-    "保留原应用演示入口，点击作品卡片可进入 /app 下的功能模块。",
-    "新增 GitHub Pages 工作流，推送 main 分支后可自动构建前端静态页面。"
+    "首页定位改为 AI Agent / LLM 应用开发者，弱化通用工具集表达。",
+    "新增 llm_agent 相关案例：天气 Agent、电商多 Agent、服务器监控 Agent、MCP 工具封装和学习笔记。",
+    "新增 Agent 架构链路和典型任务 trace，让面试官能快速看懂技术实现重点。",
+    "保留 Aether Studio 工作台作为 AI 产品化界面的补充展示。"
   ]
 }

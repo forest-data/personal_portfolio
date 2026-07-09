@@ -1,6 +1,6 @@
-# Forest Data - AI 应用作品集
+# Forest Data - AI Agent / LLM 应用作品集
 
-这是一个可以放到 GitHub 上展示的个人作品集项目。首页是公开的作品集页面，内容来自本地 JSON 文件；原来的 AI 工具工作台、运营 BI、记账台、股票概念学习和 Image2Video 仍保留为可运行演示模块。
+这是一个可以放到 GitHub 上展示的个人作品集项目。首页重点展示 AI Agent / LLM 工程能力，内容来自本地 JSON 文件；`llm_agent` 里的天气 Agent、电商多 Agent、服务器监控 Agent、MCP 工具封装和学习笔记已经整理进作品集首页。
 
 仓库地址：`git@github.com:forest-data/personal_portfolio.git`
 
@@ -30,18 +30,19 @@ frontend/src/data/portfolio.json
 
 - 新增公开个人主页，默认访问 `/` 即可查看作品集。
 - 新增 `frontend/src/data/portfolio.json`，作品集文案和项目数据都用文件维护。
+- 首页定位改为 AI Agent / LLM 方向，并纳入 `llm_agent` 相关案例展示。
 - 保留原应用演示入口，登录页在 `/login`，工作台在 `/app`。
 - 新增 GitHub Pages 自动部署工作流 `.github/workflows/deploy-pages.yml`。
 - 新增 `.gitignore`，忽略依赖、构建产物、上传文件、生成视频和后端运行数据。
 
 ## 功能模块
 
-- **个人作品集首页**：公开展示个人定位、项目模块、技能关键词、项目演进和改动备注。
-- **Aether Studio 工作台**：统一登录、侧栏导航、模块化业务页面和内置 AI 助手。
-- **运营 BI 看板**：展示活跃用户、渠道来源、转化漏斗、活动推进和异常预警。
-- **个人记账台**：支持收支记录、分类统计、流水表格和本地文件数据保存。
-- **股票概念理解**：整理股票指标、概念学习和偏好扫描结果。
-- **Image2Video**：上传图片后配置字幕、分辨率、帧率和转场，生成可预览下载的视频。
+- **天气 Agent**：LLM + LangGraph + MCP 天气工具调用，支持规则/LLM 双模式和 trace 展示。
+- **电商客服 / 运营多 Agent**：Router、CustomerService、Ops、Knowledge 多 Agent 协作。
+- **服务器监控 Agent**：通过 MCP 采集本机指标，SQLite 留存快照，LangGraph 输出排障建议。
+- **MCP 工具封装**：把 Open-Meteo REST API 封装成 Tools、Resources、Prompts。
+- **AI Agent 学习笔记**：整理 LLM、Agent、Harness、LangGraph、MCP、Spring AI 的知识体系。
+- **Aether Studio 工作台**：保留原前端工作台，作为 AI 产品化界面的补充展示。
 
 ## 快速启动
 
@@ -82,7 +83,8 @@ npm run dev
 
 ## 技术栈
 
+- **Agent**：LangGraph + MCP + Tool Calling + 多 Agent 编排
+- **后端**：Python Flask / FastAPI + MySQL / SQLite + 文件型 JSON 存储
 - **前端**：React 18 + Vite + React Router + lucide-react
-- **后端**：Python FastAPI + Pydantic + 文件型 JSON 存储
-- **视频生成**：Pillow + imageio + imageio-ffmpeg
+- **AI 应用能力**：上下文记忆、LLM Cache、Prompt 版本、任务 trace、规则兜底
 - **部署**：GitHub Pages + GitHub Actions
