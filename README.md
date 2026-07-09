@@ -6,7 +6,7 @@
 
 ## 在线展示
 
-推送到 `main` 分支后，仓库内的 GitHub Actions 会自动构建前端并发布到 GitHub Pages。
+推送到 `main` 分支后，仓库内的 GitHub Actions 会自动构建前端并发布到 `gh-pages` 分支。
 
 预计访问地址：
 
@@ -14,7 +14,7 @@
 https://forest-data.github.io/personal_portfolio/
 ```
 
-如果第一次发布后页面没有立即出现，可以到 GitHub 仓库的 `Settings -> Pages` 中确认 Source 使用 `GitHub Actions`。
+如果第一次发布后页面没有立即出现，可以到 GitHub 仓库的 `Settings -> Pages` 中确认 Source 使用 `Deploy from a branch`，Branch 选择 `gh-pages`，目录选择 `/root`。
 
 ## 作品集数据
 
